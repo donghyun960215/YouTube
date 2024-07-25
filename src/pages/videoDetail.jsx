@@ -31,18 +31,24 @@ function VideoDetail(props) {
       // getDetailVideo();
     }
 
+    const iframeProps = {
+      id: "ytplayer",
+      type: "text/html",
+      width: "720",
+      height: "405",
+      src: "https://www.youtube.com/embed/cgdne04i99I",
+      frameborder: "0",
+      allowfullscreen: "allowfullscreen",
+    };
+
 
   },[detail]);
   return (
     <>
       <div>{id}</div>
-      <iframe
-        id="player"
-        type="text/html"
-        width="640"
-        height="360"
-        src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com`}
-        frameBorder="0"></iframe>
+      <iframe id="ytplayer" type="text/html" width="720" height="405"
+              src={`https://www.youtube.com/embed/${videoId}`}
+              frameBorder="0" allowFullScreen></iframe>
     </>
   );
 }

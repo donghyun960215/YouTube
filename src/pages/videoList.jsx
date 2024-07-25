@@ -9,37 +9,23 @@ function VideoList(props) {
   const [videoList, setVideoList] = useState([]);
 
   const getVideoList = useCallback( async () => {
-    // if(search){
-    //   const {data, status} = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search}&key=AIzaSyCWCRNHZQD8OPXi8v5h6slPLMw6yPSIZcA`)
-    //   if(status === 200){
-    //     setVideoList(data.items);
-    //     console.log('search:::',data.items)
-    //   }
-    // }else {
-    //   const {data, status} = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=인기동영상&key=AIzaSyCWCRNHZQD8OPXi8v5h6slPLMw6yPSIZcA`)
-    //   if(status === 200){
-    //     setVideoList(data.items);
-    //     console.log('baaaa:::',data.items)
-    //   }
-    // }
-    const {data, status} = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search? search : '인기동영상'}&key=AIzaSyCWCRNHZQD8OPXi8v5h6slPLMw6yPSIZcA`)
+      const {data, status} = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=kr&key=AIzaSyCWCRNHZQD8OPXi8v5h6slPLMw6yPSIZcA`)
       if(status === 200){
         setVideoList(data.items);
         console.log('search:::',data.items)
       }
+
   })
 
   const goToDetail = (video) => {
-    navigate(`/detail?id=${video.snippet.channelId}&videoId=${video.id.videoId}`);
+    navigate(`/detail?id=${video.snippet.channelId}&videoId=${video.id}`);
     console.log(video)
   }
-
 
   useEffect(() => {
     if(videoList){
       getVideoList();
     }
-
   },[search] );
 
   return (
